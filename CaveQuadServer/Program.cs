@@ -108,14 +108,14 @@ namespace CaveQuadServer
             serverTimer.Interval = 1000;
             serverTimer.Enabled = true;
 
-            Console.WriteLine(@"'start' / 'stop' to run and end the server.");
-            Console.WriteLine("'exit' to end the program");
+            Console.WriteLine("Review code for instructions or enter 'help'");
             while (runloop)
             {
                 inpt = Console.ReadLine();
                 switch (inpt)
                 {
                     case "start":
+                        Console.Clear();
                         StartListeningForIncomingConnection();
                         break;
                     case "stop":
@@ -123,6 +123,18 @@ namespace CaveQuadServer
                         break;
                     case "clear":
                         Console.Clear();
+                        break;
+                    case "help":
+                        Console.WriteLine("start : starts the server");
+                        Console.WriteLine("stop : ends the server");
+                        Console.WriteLine("exit : terminiates the program");
+                        Console.WriteLine("clear : clears the console");
+                        Console.WriteLine("broadcast : broadcasts a message to all player chat windows");
+                        Console.WriteLine("snapshot : views a player");
+                        Console.WriteLine("ban : bans a player by IP");
+                        Console.WriteLine("banlist : views the list of bans");
+                        Console.WriteLine("seconds : server uptime");
+                        Console.WriteLine("playerstats : views player account info");
                         break;
                     case "broadcast":
                         Console.WriteLine("Enter a string to broadcast, or type cancel to not broadcast anything");
