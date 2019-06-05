@@ -42,10 +42,10 @@ namespace CaveQuadServer
             int[,] maparr = new int[191, 191];
             if (!File.Exists(directory + @"maps\collisionmap.txt"))
             {
-                Console.WriteLine("mapintext3.txt not found... aborting...");
+                Console.WriteLine("collisionmap.txt not found... aborting...");
                 return;
             }
-            String input = File.ReadAllText(directory+@"mapintext3.txt");
+            String input = File.ReadAllText(directory+ @"maps\collisionmap.txt");
             int i = 0, j = 0;
             foreach (var row in input.Split('\n'))
             {
@@ -107,6 +107,9 @@ namespace CaveQuadServer
             serverTimer.Elapsed += new ElapsedEventHandler(TickServerSecond);
             serverTimer.Interval = 1000;
             serverTimer.Enabled = true;
+
+            Console.WriteLine(@"'start' / 'stop' to run and end the server.");
+            Console.WriteLine("'exit' to end the program");
             while (runloop)
             {
                 inpt = Console.ReadLine();
@@ -533,7 +536,8 @@ namespace CaveQuadServer
         {
             try
             {
-                p.GetStream().WriteAsync(msBuff, 0, msBuff.Length);
+                await p.GetStream().WriteAsync(msBuff, 0, msBuff.Length);
+                //await p.GetStream().WriteAsync(msBuff, 0, msBuff.Length);
             }
             catch (Exception e)
             {
@@ -549,7 +553,8 @@ namespace CaveQuadServer
             {
                 foreach (Player c in mClients)
                 {
-                    c.GetSocket().GetStream().WriteAsync(msBuff, 0, msBuff.Length);
+                    await c.GetSocket().GetStream().WriteAsync(msBuff, 0, msBuff.Length);
+                    //c.GetSocket().GetStream().WriteAsync(msBuff, 0, msBuff.Length);
                 }
             }
             catch (Exception e)
