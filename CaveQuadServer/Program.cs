@@ -203,7 +203,11 @@ namespace CaveQuadServer
                             Console.WriteLine("X: "+p.X+" Y: "+p.Y);
                             Console.WriteLine("Loggedin: "+p.loggedin.ToString());
                             Console.WriteLine("Coin: "+p.Coin);
-                            Console.WriteLine("RedGem: "+p.Gem_red);
+                            Console.WriteLine("GreenGem: "+p.Gem_green);
+                            Console.WriteLine("BlueGem: " + p.Gem_blue);
+                            Console.WriteLine("RedGem: " + p.Gem_red);
+                            Console.WriteLine("PurpleGem: " + p.Gem_purple);
+                            Console.WriteLine("BlackGem: " + p.Gem_black);
                             if (p.CurrentLobby != null)
                             {
                                 Console.WriteLine("Current Lobby: " + p.CurrentLobby.Name);
@@ -330,7 +334,11 @@ namespace CaveQuadServer
                                         paramClient.Y = Convert.ToByte(Convert.ToInt32(tread[3]));
                                         paramClient.Name = temp;
                                         paramClient.Coin = Convert.ToByte(Convert.ToInt32(tread[4]));
-                                        paramClient.Gem_red = Convert.ToByte(Convert.ToInt32(tread[6]));
+                                        paramClient.Gem_green = Convert.ToByte(Convert.ToInt32(tread[6]));
+                                        paramClient.Gem_blue = Convert.ToByte(Convert.ToInt32(tread[7]));
+                                        paramClient.Gem_red = Convert.ToByte(Convert.ToInt32(tread[8]));
+                                        paramClient.Gem_purple = Convert.ToByte(Convert.ToInt32(tread[9]));
+                                        paramClient.Gem_black = Convert.ToByte(Convert.ToInt32(tread[10]));
                                         Console.WriteLine("Successful Login for {0}", temp);
                                         paramClient.id = idhandouts[0];
                                         idhandouts.RemoveAt(0);
@@ -369,7 +377,11 @@ namespace CaveQuadServer
                                     paramClient.X = spawnx;
                                     paramClient.Y = spawny;
                                     paramClient.Coin = 0;
+                                    paramClient.Gem_green = 0;
+                                    paramClient.Gem_blue = 0;
                                     paramClient.Gem_red = 0;
+                                    paramClient.Gem_purple = 0;
+                                    paramClient.Gem_black = 0;
                                     paramClient.Name = temp;
                                     Console.WriteLine("New account created: {0}", temp);
                                     paramClient.id = idhandouts[0];
@@ -647,7 +659,8 @@ namespace CaveQuadServer
                 string plob = "-1";
                 if (p.CurrentLobby != null)
                     plob = p.CurrentLobby.Name;
-                string[] tfill = new string[] { p.Name, p.Fash, p.X.ToString(), p.Y.ToString(), p.Coin.ToString() , plob , p.Gem_red.ToString()};
+                string[] tfill = new string[] { p.Name, p.Fash, p.X.ToString(), p.Y.ToString(), p.Coin.ToString() , plob , p.Gem_green.ToString(), p.Gem_blue.ToString()
+                ,p.Gem_red.ToString(), p.Gem_purple.ToString(), p.Gem_black.ToString()};
                 File.WriteAllLines(ppath, tfill);
             }
             else
@@ -665,6 +678,6 @@ namespace CaveQuadServer
 
 /*
  * tread
- * 0: Name, 1: Fash, 2: X, 3: Y, 4: Coin, 5: Lobby, 6: Gem_red
+ * 0: Name, 1: Fash, 2: X, 3: Y, 4: Coin, 5: Lobby, 6: greengem, 7: bluegem, 8: redgem, 9: purplegem, 10: blackgem
  * 
  */

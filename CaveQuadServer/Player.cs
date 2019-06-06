@@ -12,7 +12,11 @@ namespace CaveQuadServer
         public byte id;
         public byte X;
         public byte Y;
+        public byte Gem_green = 0;
+        public byte Gem_blue = 0;
         public byte Gem_red = 0;
+        public byte Gem_purple = 0;
+        public byte Gem_black = 0;
         public int Coin;
         public string Name;
         public bool Flagged;
