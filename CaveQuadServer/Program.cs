@@ -476,7 +476,7 @@ namespace CaveQuadServer
                                 SBuff.WriteString(txt);
                                 SendPacketAll();
                                 break;
-                            case 5://interaction
+                            case 5://event interaction
 
                                 int telecall = eventmap.getTeleport(paramClient.X, paramClient.Y);
                                 if (telecall > -1)
@@ -488,7 +488,7 @@ namespace CaveQuadServer
                                 }
 
                                 break;
-                            case 6:
+                            case 6: //player scanning the gem map
                                 if (paramClient.CurrentLobby != null)
                                 {
                                     SBuff.SeekStart();
@@ -501,7 +501,7 @@ namespace CaveQuadServer
                                     SendPacket(paramClient.GetSocket());
                                 }
                                 break;
-                            case 7:
+                            case 7://player collecting a gem
                                 byte tx = RBuff.ReadByte();
                                 byte ty = RBuff.ReadByte();
                                 if (gemmap.GetSpot(tx, ty) == 1)
@@ -658,6 +658,7 @@ namespace CaveQuadServer
         public static void TickServerSecond(object source, ElapsedEventArgs e)
         {
             serverSecond += 1;
+            //change price of certain gems
         }
     }
 }

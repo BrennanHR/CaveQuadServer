@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventMap.cs" />
+    <Compile Include="Market.cs" />
     <Compile Include="Lobby.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MessageBuffer.cs" />
