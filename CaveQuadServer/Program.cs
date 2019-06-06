@@ -23,6 +23,8 @@ namespace CaveQuadServer
         static EventMap eventmap;
         static List<string> banlist;
         static List<byte> idhandouts;
+        static Market playermarket;
+        static bool serverOn = false;
         static byte[] msBuff;
         static byte[] mrBuff;
         static int mPort;
@@ -37,6 +39,7 @@ namespace CaveQuadServer
         static byte spawny = 5;
         static void Main(string[] args)
         {
+            playermarket = new Market();
             //init Collision map
             //int[,] maparr= new int[191,177];
             int[,] maparr = new int[191, 191];
@@ -106,7 +109,7 @@ namespace CaveQuadServer
             serverTimer = new Timer();
             serverTimer.Elapsed += new ElapsedEventHandler(TickServerSecond);
             serverTimer.Interval = 1000;
-            serverTimer.Enabled = true;
+            serverTimer.Enabled = false;
 
             Console.WriteLine("Review code for instructions or enter 'help'");
             while (runloop)
@@ -115,11 +118,19 @@ namespace CaveQuadServer
                 switch (inpt)
                 {
                     case "start":
-                        Console.Clear();
-                        StartListeningForIncomingConnection();
+                        if (serverOn == false)
+                        {
+                            Console.Clear();
+                            serverOn = true;
+                            StartListeningForIncomingConnection();
+                            serverTimer.Enabled = true;
+                        }
                         break;
                     case "stop":
-                        StopServer();
+                        if (serverOn == true)
+                        {
+                            StopServer();
+                        }
                         break;
                     case "clear":
                         Console.Clear();
@@ -298,6 +309,8 @@ namespace CaveQuadServer
                 else
                     Console.WriteLine("An exception has been caught in StopServer()");
             }
+            serverOn = false;
+            serverTimer.Enabled = false;
         }
         private static async void TakeCareOfTCPClient(Player paramClient)
         {
@@ -671,7 +684,11 @@ namespace CaveQuadServer
         public static void TickServerSecond(object source, ElapsedEventArgs e)
         {
             serverSecond += 1;
-            //change price of certain gems
+            if (serverSecond % 60 == 0)
+            {
+                playermarket.MarketShift();
+                Console.WriteLine("EVENT: The market has shifted");
+            }
         }
     }
 }
